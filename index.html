@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin:0;
+            box-sizing: inherit;
+            user-select: none;
+        }
+        html {
+            font-size:62.5%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            padding: 2rem;
+            box-sizing: border-box;
+            background: #000;
+        }
+        #grid {
+            background: #fff;
+            border-radius: 5px;
+            width: 640px;
+            height: 640px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+        }
+        #clicks {
+            font-size:4.6rem;
+        }
+        button {
+            background: crimson;
+            border: 0;
+            font-size: 1.8rem;
+            padding: 1rem .5rem;
+            color: #fff;
+            border-radius: 1rem;
+            margin: 0 auto;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="grid">
+            <span id="clicks"></span>
+        </div>
+        <button>reset</button>
+    </div>
+    <audio id="audio" src="bam.wav"></audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script>
+        if (localStorage.getItem("clicks") === null) 
+        {
+            
+            $("#clicks").text(localStorage.setItem("clicks", "0"));
+            $("#clicks").text('0');
+        }
+        else 
+        {
+            
+            $("#clicks").text(localStorage.getItem("clicks"));
+        }
+
+        $("#grid").click(function() {
+            var currentVal = $("#clicks").text();
+            currentVal++;
+            localStorage.setItem("clicks", currentVal);
+            $("#clicks").text(currentVal);
+
+
+            if (currentVal % 10 == 0)
+            {
+                $("#clicks").animate({fontSize: "10rem"}).animate({fontSize: "4.6rem"});
+                $("#audio")[0].play();
+            }
+
+        });
+
+        $("button").click(function(){
+            localStorage.setItem("clicks", "0");
+            $("#clicks").text('0');
+        });
+    </script>
+    
+</body>
+</html>
